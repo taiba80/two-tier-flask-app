@@ -14,7 +14,7 @@ services:
       - ./mysql-data:/var/lib/mysql
       - ./message.sql:/docker-entrypoint-initdb.d/message.sql  
     networks:
-      - twotier
+      - mynet
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
@@ -23,7 +23,7 @@ services:
       start_period: 60s
 
   flask-app:
-    image: trainwithshubham/two-tier-flask-app:latest
+    image: taiba090/two-tier-flask-app:latest
     container_name: flask-app
     ports:
       - "5000:5000"
@@ -35,7 +35,7 @@ services:
     depends_on:
       - mysql
     networks:
-      - twotier
+      - mynet
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
@@ -45,4 +45,4 @@ services:
       start_period: 30s
 
 networks:
-  twotier:
+  mynet:
