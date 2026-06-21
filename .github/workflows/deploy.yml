@@ -1,3 +1,4 @@
+# hello just for checking
 name: CI/CD Deploy to EC2
 
 on:
@@ -26,3 +27,5 @@ jobs:
             git pull origin master
             docker compose down
             docker compose up -d --build
+
+           
